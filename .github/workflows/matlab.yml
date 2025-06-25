@@ -29,7 +29,7 @@ jobs:
         uses: matlab-actions/run-tests@v2
         # If you are not using a MATLAB project, add your source code to the path using the source-folder input.
         with:
-          source-folder: myfolderA; myfolderB
+          source-folder: myfolder1; myfolder2
 
       # Alternatively, use the run-build action to run the tasks in your buildfile.m.
       # - name: Run MATLAB build
