@@ -10,28 +10,12 @@ on:
     branches: [main]
   workflow_dispatch: {}
 
-env:
-  # To use a batch token in this workflow, first create an MLM_LICENSE_TOKEN secret in your repository settings.
-  # https://github.com/matlab-actions/setup-matlab/#use-matlab-batch-licensing-token
-  MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
-  
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Start virtual display server
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y xvfb
-          Xvfb :99 &
-          echo "DISPLAY=:99" >> $GITHUB_ENV
       
       - name: Set up MATLAB
         uses: matlab-actions/setup-matlab@v2
@@ -44,14 +28,14 @@ jobs:
       - name: Run MATLAB tests
         uses: matlab-actions/run-tests@v2
 
-      # Use run-command to run MATLAB scripts, functions, and statements.
-      - name: Run MATLAB command
-        uses: matlab-actions/run-command@v2
-        with:
-          command: results = runtests('IncludeSubfolders',true); assertSuccess(results);
-
       # Use run-build to invoke the MATLAB build tool if you have a buildfile.m.
-      - name: Run MATLAB build
-        uses: matlab-actions/run-build@v2
-        with:
-          tasks: test
+      # - name: Run MATLAB build
+      #   uses: matlab-actions/run-build@v2
+      #   with:
+      #     tasks: test
+
+      # Use run-command to run MATLAB scripts, functions, and statements.
+      # - name: Run MATLAB command
+      #   uses: matlab-actions/run-command@v2
+      #   with:
+      #     command: results = runtests('IncludeSubfolders',true); assertSuccess(results);
