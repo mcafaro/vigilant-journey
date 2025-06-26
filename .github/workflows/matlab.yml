@@ -41,14 +41,14 @@ jobs:
           cache: true
           # Set up additional products using the products input.
           # See https://github.com/matlab-actions/setup-matlab/#set-up-matlab
-          # products: Simulink Deep_Learning_Toolbox
+          products: Simulink Deep_Learning_Toolbox
 
       # Run tests authored using the MATLAB unit testing framework or Simulink Test.
       - name: Run MATLAB tests
         uses: matlab-actions/run-tests@v2
         # If you are not using a MATLAB project, add your source code to the path using the source-folder input.
-        # with:
-        #   source-folder: myfolderA; myfolderB
+        with:
+          source-folder: myfolderA; myfolderB
 
       # Alternatively, run tasks in your buildfile.m.
       # - name: Run MATLAB build
